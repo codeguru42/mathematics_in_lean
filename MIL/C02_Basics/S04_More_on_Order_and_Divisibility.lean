@@ -81,8 +81,42 @@ example : min (min a b) c = min a (min b c) := by
         _ ≤ c := by
           apply min_le_right
 
+example : max (max a b) c = max a (max b c) := by
+  apply le_antisymm
+  · apply max_le
+    · apply max_le
+      · apply le_max_left
+      · apply le_trans
+        · show b ≤ max b c
+          apply le_max_left
+        · show max b c ≤ max a (max b c)
+          apply le_max_right
+    · apply le_trans
+      · show c ≤ max b c
+        apply le_max_right
+      · show max b c ≤ max a (max b c)
+        apply le_max_right
+  · apply max_le
+    · apply le_trans
+      · show a ≤ max a b
+        apply le_max_left
+      · show max a b ≤ max (max a b) c
+        apply le_max_left
+    · apply max_le
+      · apply le_trans
+        · show b ≤ max a b
+          apply le_max_right
+        · show max a b ≤ max (max a b) c
+          apply le_max_left
+      · apply le_max_right
+
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
-  sorry
+  apply le_min
+  · apply le_trans
+    · sorry
+    · sorry
+    · sorry
+  · sorry
 example : min a b + c = min (a + c) (b + c) := by
   sorry
 #check (abs_add_le : ∀ a b : ℝ, |a + b| ≤ |a| + |b|)
