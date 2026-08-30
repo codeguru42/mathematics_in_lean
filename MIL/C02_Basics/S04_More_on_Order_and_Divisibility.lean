@@ -112,11 +112,10 @@ example : max (max a b) c = max a (max b c) := by
 
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
   apply le_min
-  · apply le_trans
-    · sorry
-    · sorry
-    · sorry
-  · sorry
+  · apply add_le_add_left
+    apply min_le_left
+  · apply add_le_add_left
+    apply min_le_right
 example : min a b + c = min (a + c) (b + c) := by
   sorry
 #check (abs_add_le : ∀ a b : ℝ, |a + b| ≤ |a| + |b|)
